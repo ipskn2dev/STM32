@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+"lap04_nvic\startup_stm32f411xe.o"
+"lap04_nvic\main.o"
+"lap04_nvic\gpio.o"
+"lap04_nvic\sys.o"
+"lap04_nvic\stm32f4xx_it.o"
+"lap04_nvic\stm32f4xx_hal_msp.o"
+"lap04_nvic\stm32f4xx_hal_tim.o"
+"lap04_nvic\stm32f4xx_hal_tim_ex.o"
+"lap04_nvic\stm32f4xx_hal_rcc.o"
+"lap04_nvic\stm32f4xx_hal_rcc_ex.o"
+"lap04_nvic\stm32f4xx_hal_flash.o"
+"lap04_nvic\stm32f4xx_hal_flash_ex.o"
+"lap04_nvic\stm32f4xx_hal_flash_ramfunc.o"
+"lap04_nvic\stm32f4xx_hal_gpio.o"
+"lap04_nvic\stm32f4xx_hal_dma_ex.o"
+"lap04_nvic\stm32f4xx_hal_dma.o"
+"lap04_nvic\stm32f4xx_hal_pwr.o"
+"lap04_nvic\stm32f4xx_hal_pwr_ex.o"
+"lap04_nvic\stm32f4xx_hal_cortex.o"
+"lap04_nvic\stm32f4xx_hal.o"
+"lap04_nvic\stm32f4xx_hal_exti.o"
+"lap04_nvic\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "LAP04_NVIC\LAP04_NVIC.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "LAP04_NVIC.map" -o LAP04_NVIC\LAP04_NVIC.axf

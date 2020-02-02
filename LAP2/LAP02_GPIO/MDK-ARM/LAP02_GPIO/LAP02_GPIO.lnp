@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+"lap02_gpio\startup_stm32f411xe.o"
+"lap02_gpio\main.o"
+"lap02_gpio\gpio.o"
+"lap02_gpio\sys.o"
+"lap02_gpio\stm32f4xx_it.o"
+"lap02_gpio\stm32f4xx_hal_msp.o"
+"lap02_gpio\stm32f4xx_hal_tim.o"
+"lap02_gpio\stm32f4xx_hal_tim_ex.o"
+"lap02_gpio\stm32f4xx_hal_rcc.o"
+"lap02_gpio\stm32f4xx_hal_rcc_ex.o"
+"lap02_gpio\stm32f4xx_hal_flash.o"
+"lap02_gpio\stm32f4xx_hal_flash_ex.o"
+"lap02_gpio\stm32f4xx_hal_flash_ramfunc.o"
+"lap02_gpio\stm32f4xx_hal_gpio.o"
+"lap02_gpio\stm32f4xx_hal_dma_ex.o"
+"lap02_gpio\stm32f4xx_hal_dma.o"
+"lap02_gpio\stm32f4xx_hal_pwr.o"
+"lap02_gpio\stm32f4xx_hal_pwr_ex.o"
+"lap02_gpio\stm32f4xx_hal_cortex.o"
+"lap02_gpio\stm32f4xx_hal.o"
+"lap02_gpio\stm32f4xx_hal_exti.o"
+"lap02_gpio\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "LAP02_GPIO\LAP02_GPIO.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "LAP02_GPIO.map" -o LAP02_GPIO\LAP02_GPIO.axf
