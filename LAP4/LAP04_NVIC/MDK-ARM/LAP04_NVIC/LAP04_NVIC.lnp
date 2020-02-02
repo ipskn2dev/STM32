@@ -1,12 +1,13 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "lap04_nvic\startup_stm32f411xe.o"
 "lap04_nvic\main.o"
 "lap04_nvic\gpio.o"
-"lap04_nvic\sys.o"
+"lap04_nvic\usart.o"
 "lap04_nvic\stm32f4xx_it.o"
 "lap04_nvic\stm32f4xx_hal_msp.o"
 "lap04_nvic\stm32f4xx_hal_tim.o"
 "lap04_nvic\stm32f4xx_hal_tim_ex.o"
+"lap04_nvic\stm32f4xx_hal_uart.o"
 "lap04_nvic\stm32f4xx_hal_rcc.o"
 "lap04_nvic\stm32f4xx_hal_rcc_ex.o"
 "lap04_nvic\stm32f4xx_hal_flash.o"

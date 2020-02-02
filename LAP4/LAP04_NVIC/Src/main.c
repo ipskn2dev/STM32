@@ -56,7 +56,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+extern UART_HandleTypeDef huart2;
 /* USER CODE END 0 */
 
 /**
@@ -102,6 +102,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		
+		HAL_UART_Transmit(&huart2, (uint8_t *) ".",1,100);
+		HAL_Delay(400);
   }
   /* USER CODE END 3 */
 }
@@ -152,9 +155,23 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if(GPIO_Pin == GPIO_PIN_13_)
+	//send --- and "B" 20 charecter
+	if(GPIO_Pin == GPIO_PIN_13)
 	{
 		HAL_UART_Transmit(&huart2, (uint8_t *) "---",3,100);
+		for(int i=0; i<20; i++){
+			HAL_UART_Transmit(&huart2, (uint8_t *) "B",1,100);
+			HAL_Delay(200);
+		}
+	}
+	//Send --- and "E" 20 charecter and toggle LED0(pb0)
+	if(GPIO_Pin == GPIO_PIN_2){
+		HAL_UART_Transmit(&huart2, (uint8_t *) "---",3,100);
+		for(int i=0; i<20; i++){
+			HAL_UART_Transmit(&huart2, (uint8_t *) "E",1,100);
+			HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_0);
+			HAL_Delay(200);
+		}
 	}
 }
 /* USER CODE END 4 */

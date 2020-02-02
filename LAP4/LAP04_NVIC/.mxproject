@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=C:/Users/ipskn/Documents/STM32/LAP4/LAP04_NVIC/Inc
+HeaderPath=C:/Users/ipskn/Documents/GitHub/STM32/LAP4/LAP04_NVIC/Inc
 HeaderFiles=gpio.h;sys.h;stm32f4xx_it.h;stm32f4xx_hal_conf.h;main.h;usart.h;
-SourcePath=C:/Users/ipskn/Documents/STM32/LAP4/LAP04_NVIC/Src
+SourcePath=C:/Users/ipskn/Documents/GitHub/STM32/LAP4/LAP04_NVIC/Src
 SourceFiles=gpio.c;sys.c;stm32f4xx_it.c;stm32f4xx_hal_msp.c;main.c;usart.c;
 
 [PreviousLibFiles]
