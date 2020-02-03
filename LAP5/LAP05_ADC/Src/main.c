@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,6 +54,7 @@ uint32_t hex1 = 501;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void displayHEX(uint32_t);
+void uart_send_msg(char str[]);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -92,7 +94,7 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	displayHEX(hex1);
   /* USER CODE END 2 */
 
 
@@ -153,7 +155,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void displayHEX(uint32_t value)
 {
-
+	char str;
+	sprintf(&str, "%X", value);
+	uart_send_msg(&str);
+}
+void uart_send_msg(char str[])
+{
+	while(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC) == RESET){}
+	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str),1000);
+	HAL_Delay(100);
 }
 /* USER CODE END 4 */
 

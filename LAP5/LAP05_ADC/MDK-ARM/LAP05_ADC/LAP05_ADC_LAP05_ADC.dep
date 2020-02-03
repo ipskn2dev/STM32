@@ -1,7 +1,7 @@
 Dependencies for Project 'LAP05_ADC', Target 'LAP05_ADC': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
 F (startup_stm32f411xe.s)(0x5E378FC1)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_LAP05_ADC-IC:\Users\ipskn\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ipskn\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "STM32F411xE SETA 1"--list startup_stm32f411xe.lst --xref -o lap05_adc\startup_stm32f411xe.o --depend lap05_adc\startup_stm32f411xe.d)
-F (../Src/main.c)(0x5E379D72)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_LAP05_ADC-IC:\Users\ipskn\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ipskn\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o lap05_adc\main.o --omf_browse lap05_adc\main.crf --depend lap05_adc\main.d)
+F (../Src/main.c)(0x5E37B577)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_LAP05_ADC-IC:\Users\ipskn\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ipskn\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o lap05_adc\main.o --omf_browse lap05_adc\main.crf --depend lap05_adc\main.d)
 I (../Inc/main.h)(0x5E378FB6)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5E36DC33)
 I (../Inc/stm32f4xx_hal_conf.h)(0x5E378FB6)
@@ -37,6 +37,7 @@ I (../Inc/adc.h)(0x5E378FB4)
 I (../Inc/usart.h)(0x5E378FB4)
 I (../Inc/gpio.h)(0x5E378FB3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9AE02A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9AE028)
 F (../Src/gpio.c)(0x5E378FB3)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_LAP05_ADC-IC:\Users\ipskn\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\ipskn\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="529" -D_RTE_ -DSTM32F411xE -DUSE_HAL_DRIVER -DSTM32F411xE-o lap05_adc\gpio.o --omf_browse lap05_adc\gpio.crf --depend lap05_adc\gpio.d)
 I (../Inc/gpio.h)(0x5E378FB3)
 I (../Inc/main.h)(0x5E378FB6)

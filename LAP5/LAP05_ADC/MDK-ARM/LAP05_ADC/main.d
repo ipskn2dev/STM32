@@ -35,3 +35,4 @@ lap05_adc\main.o: ../Inc/adc.h
 lap05_adc\main.o: ../Inc/usart.h
 lap05_adc\main.o: ../Inc/gpio.h
 lap05_adc\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+lap05_adc\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
