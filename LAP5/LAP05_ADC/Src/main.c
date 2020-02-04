@@ -48,6 +48,7 @@
 
 /* USER CODE BEGIN PV */
 uint32_t hex1 = 501;
+volatile uint32_t adc_val = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,7 +95,9 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-	displayHEX(hex1);
+	HAL_ADC_Start(&hadc1);
+	
+	
   /* USER CODE END 2 */
 
 
@@ -105,6 +108,9 @@ int main(void)
     /* USER CODE END WHILE */
 		
     /* USER CODE BEGIN 3 */
+			while ( HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK ){}
+			adc_val = HAL_ADC_GetValue(&hadc1);
+			displayHEX(adc_val);
   }
   /* USER CODE END 3 */
 }
@@ -155,9 +161,15 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void displayHEX(uint32_t value)
 {
-	char str;
-	sprintf(&str, "%X", value);
+	char str,vin;
+	double voltage = value/572.6; //calculate voltage from value
+	sprintf(&str, "%X", value); //convert value to Heximal value
+	sprintf(&vin, "%.2f", voltage);
+	uart_send_msg("ADC1_CH10 0x");
 	uart_send_msg(&str);
+	uart_send_msg(" Vin = ");
+	uart_send_msg(&vin);
+	uart_send_msg(" v\n\r");
 }
 void uart_send_msg(char str[])
 {
