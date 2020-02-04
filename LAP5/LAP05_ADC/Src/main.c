@@ -56,6 +56,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void displayHEX(uint32_t);
 void uart_send_msg(char str[]);
+void displayLED(int);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -167,27 +168,42 @@ void displayHEX(uint32_t value)
 	int level = voltage;
 	sprintf(&str, "%X", value); //convert value to Heximal value
 	sprintf(&vin, "%.2f", voltage);
+	displayLED(level);
 	uart_send_msg("ADC1_CH10 0x");
 	uart_send_msg(&str);
 	uart_send_msg(" Vin = ");
 	uart_send_msg(&vin);
 	uart_send_msg(" v\n\r");
-	if(level < 1)
-	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);}
-	else if(level < 2)
-	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);}
-	else if(level < 3)
-	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);}
-	else if(level < 4)
-	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);}
-	else
-	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);}
+	HAL_Delay(400);
+	
 }
 void uart_send_msg(char str[])
 {
 	while(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC) == RESET){}
 	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str),1000);
 	HAL_Delay(100);
+}
+void displayLED(int level)
+{
+	if(level < 1)
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);}
+	else if(level < 2)
+	{
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);
+	}
+	else if(level < 3)
+	{
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);
+	}
+	else if(level < 4)
+	{
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
+	}
+	else
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);}
 }
 /* USER CODE END 4 */
 
