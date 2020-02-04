@@ -99,14 +99,15 @@ int main(void)
 	
 	
   /* USER CODE END 2 */
-
+ 
+ 
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-		
+
     /* USER CODE BEGIN 3 */
 			while ( HAL_ADC_PollForConversion(&hadc1, 100) != HAL_OK ){}
 			adc_val = HAL_ADC_GetValue(&hadc1);
@@ -163,6 +164,7 @@ void displayHEX(uint32_t value)
 {
 	char str,vin;
 	double voltage = value/572.6; //calculate voltage from value
+	int level = voltage;
 	sprintf(&str, "%X", value); //convert value to Heximal value
 	sprintf(&vin, "%.2f", voltage);
 	uart_send_msg("ADC1_CH10 0x");
@@ -170,6 +172,16 @@ void displayHEX(uint32_t value)
 	uart_send_msg(" Vin = ");
 	uart_send_msg(&vin);
 	uart_send_msg(" v\n\r");
+	if(level < 1)
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);}
+	else if(level < 2)
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);}
+	else if(level < 3)
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);}
+	else if(level < 4)
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);}
+	else
+	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);}
 }
 void uart_send_msg(char str[])
 {
