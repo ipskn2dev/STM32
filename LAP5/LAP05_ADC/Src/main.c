@@ -47,8 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t hex1 = 501;
-volatile uint32_t adc_val = 0;
+volatile uint32_t adc_val = 0x0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
