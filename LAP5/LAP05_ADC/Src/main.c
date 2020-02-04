@@ -165,16 +165,15 @@ void displayHEX(uint32_t value)
 	char str,vin;
 	double voltage = value/572.6; //calculate voltage from value
 	int level = voltage;
-	sprintf(&str, "%X", value); //convert value to Heximal value
+	sprintf(&str, "0x%X", value); //convert value to Heximal value
 	sprintf(&vin, "%.2f", voltage);
 	displayLED(level);
-	uart_send_msg("ADC1_CH10 0x");
+	uart_send_msg("ADC1_CH10 ");
 	uart_send_msg(&str);
 	uart_send_msg(" Vin = ");
 	uart_send_msg(&vin);
 	uart_send_msg(" v\n\r");
 	HAL_Delay(400);
-	
 }
 void uart_send_msg(char str[])
 {
