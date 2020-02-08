@@ -56,7 +56,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void displayHEX(uint32_t);
 void uart_send_msg(char str[]);
-void displayLED(int);
+void displayLED(float);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,11 +164,10 @@ void SystemClock_Config(void)
 void displayHEX(uint32_t value)
 {
 	char vin;
-	double voltage = value/572.6; //calculate voltage from value
-	int level = voltage;
+	float voltage = (value*3.3)/4096; //calculate voltage from value
 	sprintf(str, "0x%010X", value); //convert value to Heximal value
 	sprintf(&vin, "%.2f", voltage);
-	displayLED(level);
+	displayLED(voltage);
 	uart_send_msg("ADC1_CH10 ");
 	uart_send_msg(str);
 	uart_send_msg(" Vin = ");
@@ -182,21 +181,21 @@ void uart_send_msg(char str[])
 	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str),1000);
 	HAL_Delay(100);
 }
-void displayLED(int level)
+void displayLED(float voltage)
 {
-	if(level < 1)
+	if(voltage < 0.66)
 	{HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);}
-	else if(level < 2)
+	else if(voltage < 1.32)
 	{
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);
 	}
-	else if(level < 3)
+	else if(voltage < 1.98)
 	{
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_SET);
 	}
-	else if(level < 4)
+	else if(voltage < 2.64)
 	{
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(GPIOC, GPIO_PIN_3, GPIO_PIN_SET);
