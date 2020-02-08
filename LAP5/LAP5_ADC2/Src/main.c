@@ -49,12 +49,14 @@
 
 /* USER CODE BEGIN PV */
 uint32_t adc_val[20];
+char str[20];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-
+void displayValue(uint32_t);
+void uart_send_msg(char str[]);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -105,7 +107,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -131,8 +132,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 80;
+  RCC_OscInitStruct.PLL.PLLM = 10;
+  RCC_OscInitStruct.PLL.PLLN = 96;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -144,9 +145,9 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV8;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV16;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV16;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
@@ -155,16 +156,32 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void displayValue(uint32_t adc_val)
+{
+	char vin;
+	float voltage = (adc_val*3.3)/4096;
+	sprintf(str, "Ox%010X", adc_val);
+	sprintf(&vin, "%.2f", voltage);
+	uart_send_msg(str);
+	uart_send_msg(&vin);
+}
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc1)
 {
-	HAL_UART_Transmit(&huart2, (uint8_t*)"HALF", 4, 100);
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+	//HAL_UART_Transmit(&huart2, (uint8_t*)"HALF", 4, 100);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc1)
 {
-	HAL_UART_Transmit(&huart2, (uint8_t*)"FULL", 4, 100);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+	//HAL_UART_Transmit(&huart2, (uint8_t*)"FULL", 4, 100);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+}
+
+void uart_send_msg(char str[])
+{
+	while(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC) == RESET){}
+	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str),1000);
+	HAL_Delay(100);
 }
 /* USER CODE END 4 */
 
