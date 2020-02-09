@@ -37,3 +37,4 @@ lap5_adc2\main.o: ../Inc/usart.h
 lap5_adc2\main.o: ../Inc/gpio.h
 lap5_adc2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 lap5_adc2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+lap5_adc2\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp.sp
+--cpu=Cortex-M4.fp
 "lap5_adc2\startup_stm32f411xe.o"
 "lap5_adc2\main.o"
 "lap5_adc2\gpio.o"
