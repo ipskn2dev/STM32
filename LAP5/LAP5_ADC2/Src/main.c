@@ -49,15 +49,16 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t adc_val[20];
+uint32_t adc_val[8];
 char str[20];
+char str2[20];
 bool readpin;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void displayValue(uint32_t, int);
+void displayValue(uint32_t, int ,char str2[]);
 void uart_send_msg(char str[]);
 /* USER CODE END PFP */
 
@@ -99,7 +100,7 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-	HAL_ADC_Start_DMA(&hadc1, adc_val, 20);
+	HAL_ADC_Start_DMA(&hadc1, adc_val, 8);
   /* USER CODE END 2 */
  
  
@@ -111,11 +112,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		displayValue(adc_val[0], 0);
-		HAL_Delay(500);
-		
-		displayValue(adc_val[1], 4);
-		HAL_Delay(500);
+		displayValue(adc_val[0], 0,"v LDR");
+		HAL_Delay(125);
+		displayValue(adc_val[1], 1,"v LDR");
+		HAL_Delay(125);
+		displayValue(adc_val[2], 2,"v LDR");
+		HAL_Delay(125);
+		displayValue(adc_val[3], 3,"v Potentiometer");
+		HAL_Delay(125);
+		displayValue(adc_val[4], 4,"v Potentiometer");
+		HAL_Delay(125);
+		displayValue(adc_val[5], 5,"v Potentiometer");
+		HAL_Delay(125);
+		displayValue(adc_val[6], 6,"v Potentiometer");
+		HAL_Delay(125);
+		displayValue(adc_val[7], 7,"v LDR");
+		HAL_Delay(125);
   }
   /* USER CODE END 3 */
 }
@@ -140,8 +152,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 10;
-  RCC_OscInitStruct.PLL.PLLN = 96;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 100;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -153,31 +165,31 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV16;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
     Error_Handler();
   }
 }
 
 /* USER CODE BEGIN 4 */
-void displayValue(uint32_t adc_val, int i)
+void displayValue(uint32_t adc_val, int i,char str2[])
 {
-	char vin[10], si[2];
+	char vin[10],si[4];
 	float voltage = (adc_val*3.3)/4096;
 	sprintf(str, "Ox%010X", adc_val);
 	sprintf(vin, "%.2f", voltage);
-	sprintf(si, "%i", i);
-	
-	HAL_UART_Transmit(&huart2, (uint8_t*)"adc_val", 7,1000);
-	HAL_UART_Transmit(&huart2, (uint8_t*)si, strlen(si),1000);
+	sprintf(si,"%i",i);
+	HAL_UART_Transmit(&huart2, (uint8_t*)"adc_channel ", 12,1000);
+	HAL_UART_Transmit(&huart2, (uint8_t*)si, strlen(si), 1000);
 	HAL_UART_Transmit(&huart2, (uint8_t*)" => ", 4,1000);
 	HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str),1000);
 	HAL_UART_Transmit(&huart2, (uint8_t*)" vin => ", 8,1000);
 	HAL_UART_Transmit(&huart2, (uint8_t*)vin, strlen(vin),1000);
+	HAL_UART_Transmit(&huart2, (uint8_t*)str2, strlen(str2),1000);
 	HAL_UART_Transmit(&huart2, (uint8_t*)"\n\r", 4,1000);
 	
 	// uart_send_msg(str);

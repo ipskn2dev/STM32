@@ -181,17 +181,16 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 // Ex.1
-void displayNumber(uint32_t value){
-	char str[13];
-	sprintf(str,"%d\r\n",value);
-	while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
-	HAL_UART_Transmit(&huart2, (uint8_t*) str, strlen(str),1000);
-}
+//void displayNumber(uint32_t value){
+//	char str[13];
+//	sprintf(str,"%d\r\n",value);
+//	while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
+//	HAL_UART_Transmit(&huart2, (uint8_t*) str, strlen(str),1000);
+//}
 // Ex.2
 void displayTime(uint32_t value){
 	char time[7];
 	sprintf(time,"%02d:%02d\r", (value/(60*1000))%60, (value/1000)%60);
-	while(__HAL_UART_GET_FLAG(&huart2,UART_FLAG_TC)==RESET);
 	HAL_UART_Transmit(&huart2, (uint8_t*) time, strlen(time),1000);
 }
 /* USER CODE END 4 */

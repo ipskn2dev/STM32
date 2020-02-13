@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "lab6.0\startup_stm32f411xe.o"
 "lab6.0\main.o"
 "lab6.0\gpio.o"
