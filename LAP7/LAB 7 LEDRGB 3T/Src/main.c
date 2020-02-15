@@ -138,7 +138,7 @@ int main(void)
 				HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_3);
 				HAL_Delay(100);
 				level ++;
-		}else if ((button =='g'|| button =='g') && level <6){
+		}else if ((button =='g'|| button =='G') && level <6){
 				htim2.Instance->CCR2 =((10000-1)*0.2)*level;
 				HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
 				HAL_Delay(100);

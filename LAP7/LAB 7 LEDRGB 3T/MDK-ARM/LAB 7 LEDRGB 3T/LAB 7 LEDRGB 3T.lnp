@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 "lab 7 ledrgb 3t\startup_stm32f411xe.o"
 "lab 7 ledrgb 3t\main.o"
 "lab 7 ledrgb 3t\gpio.o"
